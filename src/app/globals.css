@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-space-mono);
+  --color-background: #f8f8f6;
+  --color-surface: #f1f2ef;
+  --color-charcoal: #172126;
+  --color-muted: #6c7578;
+  --color-steel: #53666c;
+  --color-steel-blue: #276a82;
+  --color-copper: #D08A27;
+  --color-brand: #D08A27;
+  --color-accent: #D08A27;
+  --color-line: #d9ddda;
+}
+
+@layer base {
+  :root { --radius: 1rem; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--color-background); color: var(--color-charcoal); font-family: var(--font-manrope), sans-serif; }
+  a { text-decoration: none; }
+}
+.container-grid { width: min(100% - 2.5rem, 84rem); margin-inline: auto; }
+.section-space { padding-block: clamp(5rem, 10vw, 10rem); }
+.display-heading { font-size: clamp(2.5rem, 5.5vw, 6rem); line-height: .96; letter-spacing: -.06em; font-weight: 500; }
+.eyebrow { font-family: var(--font-space-mono), monospace; font-size: .7rem; line-height: 1; text-transform: uppercase; letter-spacing: .16em; color: var(--color-muted); }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+::selection { background: var(--color-copper); color: white; }
+@media (max-width: 640px) { .container-grid { width: min(100% - 2rem, 84rem); } }
