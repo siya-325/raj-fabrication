@@ -13,8 +13,8 @@ export const mainNavItems: NavItem[] = [
 ]
 
 export const footerServiceItems: NavItem[] = [
-  { label: 'Metal fabrication', href: '/services#metal-fabrication' },
-  { label: 'MS fabrication', href: '/services#ms-fabrication' },
-  { label: 'Welding services', href: '/services#welding' },
-  { label: 'Custom work', href: '/services#custom-work' },
+  { label: 'Industrial sheds', href: '/services?category=Industrial+Sheds' },
+  { label: 'Structural MS work', href: '/services?category=Structural+MS+Work' },
+  { label: 'Gates & railings', href: '/services?category=Gates+%26+Railings' },
+  { label: 'Grills & partitions', href: '/services?category=Grills+%26+Partitions' },
 ]

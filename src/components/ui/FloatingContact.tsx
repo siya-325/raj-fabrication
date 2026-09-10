@@ -28,7 +28,7 @@ export function FloatingContact() {
   return (
     <div
       aria-label="Quick contact options"
-      className="fixed bottom-6 left-6 sm:bottom-8 sm:left-8 z-40 flex flex-col gap-2.5 sm:gap-3 items-center"
+      className="fixed bottom-6 left-6 sm:bottom-8 sm:left-8 z-50 flex flex-col gap-2.5 sm:gap-3 items-center"
     >
       {/* Phone Call Button with Continuous Ping Animation */}
       <div className="relative flex items-center justify-center">

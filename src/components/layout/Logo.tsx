@@ -70,7 +70,7 @@ export function Logo({
       <Link
         href={href}
         className={cn(
-          'relative z-50 inline-flex items-center transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper rounded-sm',
+          'relative inline-flex items-center transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper rounded-sm',
           className
         )}
         aria-label={`${site.name} home`}

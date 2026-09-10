@@ -46,7 +46,7 @@ export function Footer() {
                   aria-label="Justdial Profile"
                   className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-background/80 transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white"
                 >
-                  <JustdialIcon size={17} />
+                  <JustdialIcon size={18} />
                 </a>
               </div>
             </div>

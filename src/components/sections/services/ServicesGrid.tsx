@@ -178,56 +178,26 @@ export function ServiceModal({
         </h2>
 
         {/* Metadata Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-xl bg-surface/80 border border-line mb-6 text-xs">
-          <div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 sm:gap-x-8 gap-y-3.5 p-4 sm:p-5 rounded-xl bg-surface/80 border border-line mb-6 text-xs">
+          <div className="min-w-0">
             <span className="block text-muted uppercase tracking-wider font-mono text-[10px]">
-              {item.category === 'Welding Services'
-                ? 'Quality Assurance'
-                : item.category === 'Fabrication Services'
-                ? 'Lead Time'
-                : item.category === 'Fabricators'
-                ? 'Material'
-                : 'Type'}
+              {item.type ? 'Type' : 'Service Type'}
             </span>
-            <span className="font-semibold text-charcoal mt-0.5 block">
-              {item.category === 'Welding Services'
-                ? item.qualityAssurance
-                : item.category === 'Fabrication Services'
-                ? item.leadTime
-                : item.category === 'Fabricators'
-                ? item.material
-                : item.type || 'Construction Services'}
+            <span className="font-semibold text-charcoal mt-0.5 block leading-snug">
+              {item.type || 'Custom Fabrication'}
             </span>
           </div>
-          <div>
+          <div className="min-w-0">
             <span className="block text-muted uppercase tracking-wider font-mono text-[10px]">
-              {item.category === 'Welding Services'
-                ? 'Area'
-                : item.category === 'Fabrication Services'
-                ? 'Industry Application'
-                : item.category === 'Metal Services'
-                ? 'Material'
-                : item.category === 'Fabrication Contractors'
-                ? 'Turnaround Time'
-                : item.category === 'Fabricators'
-                ? 'Custom Design'
-                : item.category === 'Ms Fabricators'
-                ? 'Industry'
-                : 'Target Audience'}
+              {item.targetAudience ? 'Target Audience' : 'Material'}
             </span>
-            <span className="font-semibold text-charcoal mt-0.5 block">
-              {item.category === 'Welding Services'
-                ? item.area
-                : item.category === 'Fabrication Services'
-                ? item.industryApplication
-                : item.category === 'Metal Services'
-                ? item.material
-                : item.turnaroundTime || item.customDesign || item.targetAudience || 'Manufacturing Sector'}
+            <span className="font-semibold text-charcoal mt-0.5 block leading-snug">
+              {item.targetAudience || item.material || 'Residential & Commercial'}
             </span>
           </div>
-          <div>
+          <div className="min-w-0">
             <span className="block text-muted uppercase tracking-wider font-mono text-[10px]">Pricing</span>
-            <span className="font-semibold text-steel-blue mt-0.5 block font-mono">{item.price || 'Request for Price'}</span>
+            <span className="font-semibold text-steel-blue mt-0.5 block font-mono leading-snug">{item.price || 'Request for Price'}</span>
           </div>
         </div>
 
@@ -268,7 +238,7 @@ export function ServiceModal({
 
 export function ServicesGrid() {
   const searchParams = useSearchParams()
-  const [activeCategory, setActiveCategory] = useState<ServiceCategory>('Industrial Shed Developers')
+  const [activeCategory, setActiveCategory] = useState<ServiceCategory>(serviceCategories[0])
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null)
 
   useEffect(() => {
@@ -321,9 +291,10 @@ export function ServicesGrid() {
     }
   }
 
-  const filteredServices = allServices.filter(
-    (service) => service.category === activeCategory
-  )
+  const filteredServices =
+    activeCategory === 'All Services'
+      ? allServices
+      : allServices.filter((service) => service.category === activeCategory)
 
   return (
     <section id="services-grid" className="section-space scroll-mt-24">

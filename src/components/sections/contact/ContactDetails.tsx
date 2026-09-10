@@ -108,7 +108,7 @@ export function ContactDetails() {
                       aria-label="Justdial Profile"
                       className="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-charcoal transition-all duration-200 hover:border-charcoal hover:bg-charcoal hover:text-white"
                     >
-                      <JustdialIcon size={18} />
+                      <JustdialIcon size={19} />
                     </a>
                   </div>
                 </div>
