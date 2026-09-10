@@ -3,8 +3,10 @@
 import { AnimatePresence, motion } from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { ChevronDown, ArrowUpRight, ArrowRight } from 'lucide-react'
 import { mainNavItems } from '@/config/navigation'
+import { servicesDropdownData } from '@/data/services'
 import { Logo } from './Logo'
 import { MobileMenu } from './MobileMenu'
 import { Button } from '@/components/ui/Button'
@@ -20,11 +22,32 @@ export function Navbar({ variant }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [isNearTop, setIsNearTop] = useState(true)
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pathname = usePathname()
 
   const resolvedVariant: NavbarVariant = variant ?? (pathname === '/' ? 'transparent' : 'solid')
   const isTransparentVariant = resolvedVariant === 'transparent'
   const isDarkTone = true // Always high-contrast white & copper on dark hero and dark charcoal sticky bar
+
+  const handleServicesEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    setIsServicesOpen(true)
+  }
+
+  const handleServicesLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsServicesOpen(false)
+    }, 180)
+  }
+
+  // Cleanup timeout on unmount and close dropdown on page navigation
+  useEffect(() => {
+    setIsServicesOpen(false)
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [pathname])
 
   useEffect(() => {
     let lastScrollY = window.scrollY
@@ -45,6 +68,7 @@ export function Navbar({ variant }: NavbarProps) {
         // Scrolling DOWN past 80px: hide navbar smoothly
         if (diff > 8 && currentScrollY > 80) {
           setIsVisible(false)
+          setIsServicesOpen(false)
         }
         // Scrolling UP anywhere on screen: reveal navbar smoothly
         else if (diff < -6) {
@@ -94,14 +118,52 @@ export function Navbar({ variant }: NavbarProps) {
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        <div className="mx-auto flex max-w-[84rem] items-center justify-between">
+        <div className="relative mx-auto flex max-w-[84rem] items-center justify-between">
           {/* Logo / Brand */}
           <Logo isDark={isDarkTone} priority size="md" />
 
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-8 text-sm font-medium md:flex" aria-label="Primary navigation">
+          {/* Desktop Navigation (Laptops & Desktops) */}
+          <nav className="hidden items-center gap-8 text-sm font-medium lg:flex" aria-label="Primary navigation">
             {mainNavItems.map((item) => {
-              const isActive = pathname === item.href
+              const isActive = pathname === item.href || (item.label === 'Services' && pathname.startsWith('/services'))
+              const isServices = item.label === 'Services'
+
+              if (isServices) {
+                return (
+                  <div
+                    key={item.href}
+                    className="relative py-1"
+                    onMouseEnter={handleServicesEnter}
+                    onMouseLeave={handleServicesLeave}
+                  >
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        'relative py-1 transition-all duration-200 inline-flex items-center gap-1.5 cursor-pointer select-none',
+                        isActive || isServicesOpen
+                          ? 'text-white font-semibold'
+                          : 'text-white/80 hover:text-white'
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        size={14}
+                        className={cn(
+                          'transition-transform duration-200 opacity-70',
+                          isServicesOpen && 'rotate-180 opacity-100 text-steel-blue'
+                        )}
+                      />
+                      {isActive && (
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-white"
+                        />
+                      )}
+                    </Link>
+                  </div>
+                )
+              }
+
               return (
                 <Link
                   key={item.href}
@@ -134,10 +196,74 @@ export function Navbar({ variant }: NavbarProps) {
             </Button>
           </nav>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Services Mega-Dropdown Panel (Architectural Editorial Design) */}
+          <AnimatePresence>
+            {isServicesOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.99 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.99 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                onMouseEnter={handleServicesEnter}
+                onMouseLeave={handleServicesLeave}
+                className="absolute left-0 right-0 top-full mt-3.5 w-full rounded-2xl bg-white border border-line shadow-[0_30px_70px_-15px_rgba(0,0,0,0.3)] z-50 text-charcoal overflow-hidden"
+              >
+                {/* Invisible hover bridge to prevent cursor gap drop */}
+                <div className="absolute -top-4 inset-x-0 h-4" />
+
+                {/* 3-Column, 2-Row Layout (Category as Head, Services without Bullets) */}
+                <div className="grid grid-cols-3 gap-x-12 gap-y-7 px-8 py-8">
+                  {servicesDropdownData.map((group) => (
+                    <div key={group.category} className="space-y-2">
+                      {/* Category Head */}
+                      <div>
+                        <Link
+                          href={group.href}
+                          onClick={() => setIsServicesOpen(false)}
+                          className="group/cat inline-flex items-center gap-1.5 text-[15px] font-bold text-charcoal hover:text-steel-blue transition-colors"
+                        >
+                          <span className="tracking-tight">{group.category}</span>
+                          <ArrowUpRight
+                            size={14}
+                            className="text-steel-blue opacity-70 group-hover/cat:opacity-100 group-hover/cat:translate-x-0.5 group-hover/cat:-translate-y-0.5 transition-all"
+                          />
+                        </Link>
+                      </div>
+
+                      {/* Services List - Without any bullet points */}
+                      <ul className="space-y-1.5">
+                        {group.services.map((serviceTitle) => (
+                          <li
+                            key={serviceTitle}
+                            className="text-[13.5px] text-[#475569] font-normal leading-relaxed select-none hover:text-charcoal transition-colors"
+                          >
+                            {serviceTitle}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+
+                  {/* 6th Slot: View All Services Button */}
+                  <div className="flex items-center">
+                    <Link
+                      href="/services"
+                      onClick={() => setIsServicesOpen(false)}
+                      className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-steel-blue text-white text-sm font-semibold hover:bg-steel-blue/90 transition-all shadow-sm"
+                    >
+                      <span>View all services</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Mobile & Tablet Menu Toggle Button */}
           <button
             type="button"
-            className="relative z-50 flex size-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 transition-colors md:hidden cursor-pointer"
+            className="relative z-50 flex size-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 transition-colors lg:hidden cursor-pointer"
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"

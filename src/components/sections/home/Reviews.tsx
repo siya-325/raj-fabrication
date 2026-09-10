@@ -106,7 +106,7 @@ export function Reviews() {
               >
                 <Card variant="surface" className="p-7 sm:p-8 flex flex-col justify-between h-full border border-line">
                   <div>
-                    <div className="flex items-center gap-1 text-copper mb-5">
+                    <div className="flex items-center gap-1 text-[#F59E0B] mb-5">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} size={16} fill="currentColor" />
                       ))}

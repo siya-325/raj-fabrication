@@ -44,7 +44,10 @@ export function ProjectsPreview() {
   }, [emblaApi, onSelect])
 
   return (
-    <section id="work" className="section-space bg-[#5C5C5C] text-white border-y border-white/10">
+    <section
+      id="work"
+      className="py-14 sm:py-20 lg:py-20 xl:py-20 bg-[#5C5C5C] text-white border-y border-white/10"
+    >
       <Container>
         <Reveal>
           <SectionHeading
@@ -53,6 +56,7 @@ export function ProjectsPreview() {
             label="Selected work"
             labelTone="white"
             title="Made for the real world."
+            titleSize="xl"
             action={
               <Button
                 variant="link"
@@ -67,19 +71,20 @@ export function ProjectsPreview() {
         </Reveal>
 
         {/* Embla Carousel Viewport */}
-        <div className="mt-12 overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
-          <div className="-ml-3 sm:-ml-6 lg:-ml-8 flex">
+        <div className="mt-8 sm:mt-12 lg:mt-6 xl:mt-7 overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
+          <div className="-ml-3 sm:-ml-6 lg:-ml-6 flex">
             {featuredProjects.map((project, index) => (
               <div
                 key={project.id}
-                className="pl-3 sm:pl-6 lg:pl-8 flex-[0_0_calc(100%/1.1)] sm:flex-[0_0_calc(100%/1.5)] lg:flex-[0_0_calc(100%/1.5)] min-w-0 select-none"
+                className="pl-3 sm:pl-6 lg:pl-6 flex-[0_0_calc(100%/1.1)] sm:flex-[0_0_calc(100%/1.5)] lg:flex-[0_0_calc(100%/2.5)] min-w-0 select-none"
               >
                 <ProjectCard
                   title={project.title}
                   category={project.category}
                   image={project.image}
                   labelTone="white"
-                  aspectRatio="aspect-[16/10] sm:aspect-[25/12] w-full"
+                  aspectRatio="aspect-[16/10] sm:aspect-[25/12] lg:aspect-[16/10] w-full"
+                  titleClassName="text-sm sm:text-base md:text-xl lg:text-base xl:text-lg font-medium"
                   priority={index === 0}
                 />
               </div>
@@ -88,7 +93,7 @@ export function ProjectsPreview() {
         </div>
 
         {/* Bottom Controls: Dots on Mobile/Tablet, Arrow Buttons on Laptop/Desktop */}
-        <div className="mt-8 sm:mt-10 flex items-center justify-center lg:justify-end">
+        <div className="mt-6 sm:mt-10 lg:mt-5 flex items-center justify-center lg:justify-end">
           {/* Slide Indicator Dots (Mobile & Tablet) */}
           <div className="flex lg:hidden items-center gap-2">
             {scrollSnaps.map((_, index) => (
@@ -113,17 +118,17 @@ export function ProjectsPreview() {
               type="button"
               onClick={scrollPrev}
               aria-label="Previous slide"
-              className="flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-all duration-200 cursor-pointer hover:bg-white hover:text-charcoal hover:border-white active:scale-95 shadow-sm"
+              className="flex size-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-all duration-200 cursor-pointer hover:bg-white hover:text-charcoal hover:border-white active:scale-95 shadow-sm"
             >
-              <ArrowLeft size={18} />
+              <ArrowLeft size={17} />
             </button>
             <button
               type="button"
               onClick={scrollNext}
               aria-label="Next slide"
-              className="flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-all duration-200 cursor-pointer hover:bg-white hover:text-charcoal hover:border-white active:scale-95 shadow-sm"
+              className="flex size-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-all duration-200 cursor-pointer hover:bg-white hover:text-charcoal hover:border-white active:scale-95 shadow-sm"
             >
-              <ArrowRight size={18} />
+              <ArrowRight size={17} />
             </button>
           </div>
         </div>

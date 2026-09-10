@@ -34,7 +34,7 @@ export function CTASection({
     <section id={id} className={cn('section-space', className)}>
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-lg bg-steel-blue px-6 py-12 text-white sm:px-12 lg:flex lg:items-end lg:justify-between lg:py-16 shadow-md">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-steel-blue px-7 py-16 text-white sm:px-12 lg:flex lg:items-end lg:justify-between lg:py-20 xl:py-24 shadow-lg">
             {/* Subtle background industrial gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
 

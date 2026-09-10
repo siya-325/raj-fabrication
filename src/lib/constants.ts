@@ -34,7 +34,7 @@ export const BUSINESS_INFO = {
     weekdays: 'Monday – Sunday: 9:00 AM – 9:00 PM',
     sunday: 'Monday – Sunday: 9:00 AM – 9:00 PM',
   },
-  brandAccent: '#D08A27',
+  brandAccent: '#276a82',
 } as const
 
 /**

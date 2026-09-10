@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Maximize2 } from 'lucide-react'
 import { SectionLabel } from '@/components/ui/SectionLabel'
+import { cn } from '@/lib/utils'
 
 export interface ProjectCardProps {
   title: string
@@ -14,6 +15,7 @@ export interface ProjectCardProps {
   priority?: boolean
   className?: string
   labelTone?: 'white' | 'copper' | 'steel' | 'steel-blue'
+  titleClassName?: string
 }
 
 export function ProjectCard({
@@ -27,6 +29,7 @@ export function ProjectCard({
   priority = false,
   className = '',
   labelTone = 'white',
+  titleClassName,
 }: ProjectCardProps) {
   const displayFullscreenButton = showFullscreenButton ?? Boolean(onClick)
 
@@ -54,7 +57,7 @@ export function ProjectCard({
       )}
 
       {/* Bottom content info */}
-      <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5 md:p-8 z-10">
+      <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5 md:p-6 lg:p-5 xl:p-6 z-10">
         <SectionLabel
           tone={labelTone}
           indicator
@@ -62,7 +65,12 @@ export function ProjectCard({
         >
           {category}
         </SectionLabel>
-        <h3 className="mt-0.5 sm:mt-2 text-[0.8125rem] sm:text-[1.125rem] md:text-[1.625rem] lg:text-[2.125rem] font-medium text-white tracking-tight leading-snug sm:leading-tight line-clamp-2 max-w-xl">
+        <h3
+          className={cn(
+            'mt-0.5 sm:mt-1.5 text-[0.8125rem] sm:text-[1.125rem] md:text-[1.5rem] lg:text-[1.625rem] font-medium text-white tracking-tight leading-snug sm:leading-tight line-clamp-2 max-w-xl',
+            titleClassName
+          )}
+        >
           {title}
         </h3>
       </div>

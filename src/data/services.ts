@@ -281,3 +281,18 @@ export const featuredServices: ServiceItem[] = [
   allServices.find((s) => s.id === 'ms-structural-fabrication') || allServices[3],
   allServices.find((s) => s.id === 'entrance-sliding-gates') || allServices[6],
 ]
+
+export interface ServiceCategoryDropdownItem {
+  category: ServiceCategory
+  href: string
+  services: string[]
+}
+
+export const servicesDropdownData: ServiceCategoryDropdownItem[] = serviceCategories
+  .filter((cat): cat is Exclude<ServiceCategory, 'All Services'> => cat !== 'All Services')
+  .map((cat) => ({
+    category: cat,
+    href: `/services?category=${encodeURIComponent(cat)}`,
+    services: allServices.filter((s) => s.category === cat).map((s) => s.title),
+  }))
+
