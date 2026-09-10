@@ -1,33 +1,11 @@
-import { MapPin, Clock, MessageCircle } from 'lucide-react'
+import { MapPin, Clock, Phone } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { ContactForm } from '@/components/forms/ContactForm'
 import { Reveal } from '@/components/motion/Reveal'
 import { site } from '@/data/site'
-import { getWhatsAppUrl } from '@/lib/helpers'
-
-function InstagramIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  )
-}
+import { InstagramIcon, GoogleIcon, JustdialIcon } from '@/components/ui/SocialIcons'
 
 export function ContactDetails() {
-  const whatsAppUrl = getWhatsAppUrl({
-    text: 'Hello Raj Fabrication, I would like to inquire about your fabrication services.',
-  })
 
   return (
     <section className="section-space">
@@ -61,7 +39,7 @@ export function ContactDetails() {
                   </p>
                 </div>
 
-                {/* Workshop Address & Working Hours (Side-by-side ONLY on tablet view) */}
+                {/* Workshop Address, Phone & Working Hours */}
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
                   {/* Workshop Address */}
                   <div>
@@ -74,6 +52,19 @@ export function ContactDetails() {
                     </p>
                   </div>
 
+                  {/* Phone & WhatsApp */}
+                  <div>
+                    <h3 className="flex items-center gap-2 text-base sm:text-lg font-semibold text-charcoal tracking-tight mb-2">
+                      <Phone size={18} className="text-copper shrink-0" />
+                      <span>Phone / WhatsApp</span>
+                    </h3>
+                    <p className="text-sm sm:text-base text-charcoal/80 font-medium">
+                      <a href={`tel:${site.phone.replace(/\s+/g, '')}`} className="transition-colors hover:text-copper">
+                        {site.phone}
+                      </a>
+                    </p>
+                  </div>
+
                   {/* Working Hours */}
                   <div>
                     <h3 className="flex items-center gap-2 text-base sm:text-lg font-semibold text-charcoal tracking-tight mb-2">
@@ -81,10 +72,10 @@ export function ContactDetails() {
                       <span>Working Hours</span>
                     </h3>
                     <p className="text-sm sm:text-base text-charcoal/80 font-medium">
-                      Monday – Saturday: 9:00 AM – 8:00 PM
+                      Monday – Sunday: 9:00 AM – 9:00 PM
                     </p>
                     <p className="mt-1 text-xs sm:text-sm text-muted">
-                      Sunday: On prior appointment
+                      Open all 7 days
                     </p>
                   </div>
                 </div>
@@ -102,22 +93,22 @@ export function ContactDetails() {
                       <InstagramIcon size={18} />
                     </a>
                     <a
-                      href={whatsAppUrl}
+                      href={site.googleProfile}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="WhatsApp"
+                      aria-label="Google Profile"
                       className="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-charcoal transition-all duration-200 hover:border-charcoal hover:bg-charcoal hover:text-white"
                     >
-                      <MessageCircle size={18} />
+                      <GoogleIcon size={17} />
                     </a>
                     <a
-                      href={site.maps}
+                      href={site.justdial}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Google Maps"
+                      aria-label="Justdial Profile"
                       className="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-charcoal transition-all duration-200 hover:border-charcoal hover:bg-charcoal hover:text-white"
                     >
-                      <MapPin size={18} />
+                      <JustdialIcon size={18} />
                     </a>
                   </div>
                 </div>

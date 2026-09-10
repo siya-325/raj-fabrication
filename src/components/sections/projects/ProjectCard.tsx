@@ -9,6 +9,7 @@ export interface ProjectCardProps {
   image?: string
   href?: string
   onClick?: () => void
+  showFullscreenButton?: boolean
   aspectRatio?: string
   priority?: boolean
   className?: string
@@ -19,13 +20,16 @@ export function ProjectCard({
   title,
   category,
   image = '/images/home/raj-fabrication-hero.png',
-  href = '/projects',
+  href,
   onClick,
+  showFullscreenButton,
   aspectRatio = 'aspect-[4/5]',
   priority = false,
   className = '',
   labelTone = 'white',
 }: ProjectCardProps) {
+  const displayFullscreenButton = showFullscreenButton ?? Boolean(onClick)
+
   const cardContent = (
     <div className={`relative ${aspectRatio} overflow-hidden rounded-lg bg-[#2a3137] border border-white/15 shadow-md transition-all duration-500 group-hover:border-white/35`}>
       <Image
@@ -39,13 +43,15 @@ export function ProjectCard({
       <div className="absolute inset-0 bg-gradient-to-t from-[#1b2024]/90 via-[#1b2024]/35 to-transparent opacity-85 transition-opacity duration-300 group-hover:opacity-75" />
 
       {/* Fullscreen indicator */}
-      <div
-        className="absolute top-2.5 right-2.5 sm:top-5 sm:right-5 z-10 flex size-6 sm:size-8 md:size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/20 transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:border-white group-hover:text-charcoal group-hover:shadow-md"
-        title="View full screen"
-        aria-label="View full screen"
-      >
-        <Maximize2 className="size-3 sm:size-4 md:size-[17px]" />
-      </div>
+      {displayFullscreenButton && (
+        <div
+          className="absolute top-2.5 right-2.5 sm:top-5 sm:right-5 z-10 flex size-6 sm:size-8 md:size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/20 transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:border-white group-hover:text-charcoal group-hover:shadow-md"
+          title="View full screen"
+          aria-label="View full screen"
+        >
+          <Maximize2 className="size-3 sm:size-4 md:size-[17px]" />
+        </div>
+      )}
 
       {/* Bottom content info */}
       <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5 md:p-8 z-10">
@@ -83,13 +89,21 @@ export function ProjectCard({
     )
   }
 
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={`group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-lg ${className}`}
+      >
+        {cardContent}
+      </Link>
+    )
+  }
+
   return (
-    <Link
-      href={href}
-      className={`group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-lg ${className}`}
-    >
+    <div className={`group block select-none ${className}`}>
       {cardContent}
-    </Link>
+    </div>
   )
 }
 

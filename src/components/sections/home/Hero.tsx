@@ -51,7 +51,7 @@ export function Hero() {
               Custom fabrication, welding, and practical metalwork for homes, businesses, and industrial requirements across Ahmedabad.
             </p>
             <Link
-              href="#services"
+              href="/services"
               className="group inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.14em] text-white transition-opacity hover:opacity-90"
             >
               <span>Explore services</span>

@@ -78,7 +78,6 @@ export function ProjectsPreview() {
                   title={project.title}
                   category={project.category}
                   image={project.image}
-                  href="/projects"
                   labelTone="white"
                   aspectRatio="aspect-[16/10] sm:aspect-[25/12] w-full"
                   priority={index === 0}

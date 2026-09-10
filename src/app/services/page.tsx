@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { PageShell } from '@/components/layout/PageShell'
 import { ServicesHero } from '@/components/sections/services/ServicesHero'
 import { ServicesGrid } from '@/components/sections/services/ServicesGrid'
@@ -13,7 +14,9 @@ export default function ServicesPage() {
   return (
     <PageShell navVariant="transparent">
       <ServicesHero />
-      <ServicesGrid />
+      <Suspense fallback={<div className="min-h-[400px] bg-background" />}>
+        <ServicesGrid />
+      </Suspense>
       <ServicesCTA />
     </PageShell>
   )

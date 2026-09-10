@@ -29,7 +29,8 @@ export function CompanyIntro() {
                 <Button
                   variant="outline"
                   size="md"
-                  href="/contact"
+                  href={site.maps}
+                  target="_blank"
                   rightIcon={<ArrowUpRight size={16} />}
                 >
                   Locate workshop on map

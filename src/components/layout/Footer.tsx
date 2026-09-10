@@ -1,34 +1,11 @@
 import Link from 'next/link'
-import { MessageCircle, MapPin, Mail, Phone, Clock } from 'lucide-react'
+import { MapPin, Mail, Phone, Clock } from 'lucide-react'
 import { Logo } from './Logo'
 import { mainNavItems, footerServiceItems } from '@/config/navigation'
 import { site } from '@/data/site'
-import { getWhatsAppUrl } from '@/lib/helpers'
-
-function InstagramIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  )
-}
+import { InstagramIcon, GoogleIcon, JustdialIcon } from '@/components/ui/SocialIcons'
 
 export function Footer() {
-  const whatsAppUrl = getWhatsAppUrl({
-    text: 'Hello Raj Fabrication, I would like to inquire about your fabrication services.',
-  })
-
   return (
     <footer className="border-t border-charcoal/10 bg-charcoal text-white">
       <div className="flex flex-col gap-12 py-14 md:py-20">
@@ -54,22 +31,22 @@ export function Footer() {
                   <InstagramIcon size={17} />
                 </a>
                 <a
-                  href={whatsAppUrl}
+                  href={site.googleProfile}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="WhatsApp"
+                  aria-label="Google Profile"
                   className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-background/80 transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white"
                 >
-                  <MessageCircle size={17} />
+                  <GoogleIcon size={16} />
                 </a>
                 <a
-                  href={site.maps}
+                  href={site.justdial}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Google Maps"
+                  aria-label="Justdial Profile"
                   className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-background/80 transition-all duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white"
                 >
-                  <MapPin size={17} />
+                  <JustdialIcon size={17} />
                 </a>
               </div>
             </div>

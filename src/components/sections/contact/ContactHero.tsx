@@ -13,7 +13,8 @@ export function ContactHero() {
         </>
       }
       description="Visit our workshop on Ramdevnagar Road in Satellite, Ahmedabad, or request a quick estimate and site visit."
-      imageAlt="Contact Raj Fabrication in Satellite Ahmedabad"
+      imageSrc="/images/contact/contact-hero.webp"
+      imageAlt="Contact Raj Fabrication in Satellite Ahmedabad for steel fabrication and site visits"
     />
   )
 }

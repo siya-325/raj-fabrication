@@ -11,7 +11,10 @@ export function cleanPhoneNumber(phone: string): string {
  * Formats a 10-digit Indian phone number into readable format: +91 98765 43210
  */
 export function formatPhoneNumber(phone: string): string {
-  const digits = phone.replace(/\D/g, '')
+  let digits = phone.replace(/\D/g, '')
+  if (digits.length === 11 && digits.startsWith('0')) {
+    digits = digits.slice(1)
+  }
   if (digits.length === 10) {
     return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`
   }
@@ -31,7 +34,10 @@ export function getWhatsAppUrl({
   phone?: string
   text?: string
 } = {}): string {
-  const digits = cleanPhoneNumber(phone).replace(/^\+/, '')
+  let digits = cleanPhoneNumber(phone).replace(/^\+/, '')
+  if (digits.length === 11 && digits.startsWith('0')) {
+    digits = digits.slice(1)
+  }
   const cleanPhone = digits.startsWith('91') ? digits : `91${digits}`
   const encodedText = text ? encodeURIComponent(text.trim()) : ''
 

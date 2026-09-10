@@ -3,11 +3,13 @@ export const site = {
   location: 'Satellite, Ahmedabad',
   address: 'Shop No. 7180, Opposite Super Society, Behind ISRO House, Ramdevnagar Road, Satellite – 380015',
   email: 'rajfabrication015@gmail.com',
-  phone: '+91 98250 00000',
+  phone: '08393889380',
   instagram: 'https://www.instagram.com/rajfabrication015/',
-  maps: 'https://www.google.com/maps/place/Raj+Fabrication/@23.0164302,72.4935926,17z',
+  googleProfile: 'https://maps.app.goo.gl/6rZBTfmWanzRZqcWA',
+  justdial: 'https://www.justdial.com/Ahmedabad/Raj-Fabrication/079PXX79-XX79-131119130904-M1S2_BZDET',
+  maps: 'https://maps.app.goo.gl/6rZBTfmWanzRZqcWA',
   established: '2012',
-  hours: 'Monday – Saturday: 9:00 AM – 8:00 PM',
+  hours: 'Monday – Sunday: 9:00 AM – 9:00 PM',
 } as const
 
 export const navigation = [

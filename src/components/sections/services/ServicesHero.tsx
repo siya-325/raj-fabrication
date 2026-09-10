@@ -13,7 +13,8 @@ export function ServicesHero() {
         </>
       }
       description="Mild steel fabrication, certified on-site welding, architectural metalwork, and structural steel frames across Ahmedabad."
-      imageAlt="Raj Fabrication metalwork and welding services"
+      imageSrc="/images/services/services-hero.webp"
+      imageAlt="Raj Fabrication heavy structural steel fabrication and erection capabilities"
     />
   )
 }

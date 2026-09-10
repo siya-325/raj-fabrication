@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'motion/react'
 import { ArrowUpRight, X, MessageCircle } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
@@ -31,7 +32,10 @@ export function ServiceCard({
   onSelect: (item: ServiceItem) => void
 }) {
   return (
-    <div className="flex flex-col h-full overflow-hidden rounded-2xl bg-white border border-line shadow-xs transition-shadow duration-300 hover:shadow-md">
+    <div
+      id={item.id}
+      className="flex flex-col h-full overflow-hidden rounded-2xl bg-white border border-line shadow-xs transition-shadow duration-300 hover:shadow-md scroll-mt-28"
+    >
       {/* Top Image */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-steel/10">
         <Image
@@ -263,15 +267,66 @@ export function ServiceModal({
 }
 
 export function ServicesGrid() {
+  const searchParams = useSearchParams()
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>('Industrial Shed Developers')
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null)
+
+  useEffect(() => {
+    const serviceParam = searchParams.get('service')
+    const categoryParam = searchParams.get('category')
+
+    if (serviceParam) {
+      const decoded = decodeURIComponent(serviceParam).toLowerCase().trim()
+      const found = allServices.find(
+        (s) =>
+          s.id.toLowerCase() === decoded ||
+          s.title.toLowerCase() === decoded ||
+          s.title.toLowerCase().replace(/\s+/g, '-') === decoded
+      )
+
+      if (found) {
+        setActiveCategory(found.category)
+        setSelectedService(found)
+
+        // Smooth scroll to services catalog or service card
+        setTimeout(() => {
+          const el = document.getElementById(found.id) || document.getElementById('services-grid')
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          }
+        }, 150)
+        return
+      }
+    }
+
+    if (categoryParam) {
+      const decodedCat = decodeURIComponent(categoryParam).toLowerCase().trim()
+      const validCat = serviceCategories.find(
+        (c) => c.toLowerCase() === decodedCat
+      )
+      if (validCat) {
+        setActiveCategory(validCat)
+      }
+    }
+  }, [searchParams])
+
+  const handleCloseModal = () => {
+    setSelectedService(null)
+    if (typeof window !== 'undefined' && window.location.search.includes('service=')) {
+      const url = new URL(window.location.href)
+      url.searchParams.delete('service')
+      const cleanSearch = url.searchParams.toString()
+      const cleanUrl = url.pathname + (cleanSearch ? `?${cleanSearch}` : '')
+      window.history.replaceState({}, '', cleanUrl)
+    }
+  }
 
   const filteredServices = allServices.filter(
     (service) => service.category === activeCategory
   )
 
   return (
-    <section className="section-space">
+    <section id="services-grid" className="section-space scroll-mt-24">
       <Container>
         {/* Category filters - centered and accessible single-row horizontal scroll */}
         <div className="flex justify-center mb-10 sm:mb-12">
@@ -333,7 +388,7 @@ export function ServicesGrid() {
         {selectedService && (
           <ServiceModal
             item={selectedService}
-            onClose={() => setSelectedService(null)}
+            onClose={handleCloseModal}
           />
         )}
       </AnimatePresence>
