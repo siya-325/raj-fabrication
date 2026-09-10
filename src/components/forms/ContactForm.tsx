@@ -168,7 +168,9 @@ export function ContactForm() {
       }
 
       // Success -> navigate to Thank You page
-      router.push('/thank-you')
+      // Using window.location.assign ensures a genuine page navigation so any analytics tracking
+      // (Google Analytics, Ads, Pixels) fires immediately without requiring a manual page refresh
+      window.location.assign('/thank-you')
     } catch (err) {
       console.error('Contact form submission error:', err)
       setSubmitError(
