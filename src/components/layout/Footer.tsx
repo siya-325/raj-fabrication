@@ -128,7 +128,13 @@ export function Footer() {
         {/* Bottom copyright row */}
         <div className="mx-auto w-full max-w-[84rem] px-5 sm:px-8 lg:px-12">
           <div className="flex flex-col gap-3 border-t border-background/15 pt-6 text-xs text-background/45 sm:flex-row sm:items-center sm:justify-between font-mono">
-            <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+              <span className="hidden sm:inline text-background/30">•</span>
+              <Link href="/sitemap.html" className="transition-colors hover:text-white">
+                Sitemap
+              </Link>
+            </div>
             <p>
               Designed and Developed by{' '}
               <a

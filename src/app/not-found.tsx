@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, Compass } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { PageShell } from '@/components/layout/PageShell'
 import { Container } from '@/components/ui/Container'
 import { SectionLabel } from '@/components/ui/SectionLabel'
@@ -9,7 +9,10 @@ import { mainNavItems } from '@/config/navigation'
 
 export default function NotFound() {
   return (
-    <PageShell navVariant="solid" mainClassName="flex items-center justify-center py-20 sm:py-28">
+    <PageShell
+      navVariant="solid"
+      mainClassName="flex items-center justify-center pt-36 pb-20 sm:pt-44 sm:pb-28"
+    >
       <Container size="narrow">
         <Reveal>
           <div className="text-center">
