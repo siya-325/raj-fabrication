@@ -17,4 +17,5 @@ export const footerServiceItems: NavItem[] = [
   { label: 'Structural MS work', href: '/services?category=Structural+MS+Work' },
   { label: 'Gates & railings', href: '/services?category=Gates+%26+Railings' },
   { label: 'Grills & partitions', href: '/services?category=Grills+%26+Partitions' },
+  { label: 'Welding & custom work', href: '/services?category=Welding+%26+Custom+Work' },
 ]
