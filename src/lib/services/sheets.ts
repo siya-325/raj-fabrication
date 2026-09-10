@@ -39,15 +39,16 @@ export async function appendLeadToGoogleSheets(lead: LeadSubmission): Promise<Sh
 
   try {
     // Note: Google Apps Script Web Apps often issue 302 redirects to script.googleusercontent.com
+    // Using text/plain;charset=utf-8 bypasses Google proxy inspection delay while delivering exact JSON to doPost(e)
     const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8',
       },
       body: JSON.stringify(payload),
       redirect: 'follow',
-      // Allow up to 10s for Apps Script execution
-      signal: AbortSignal.timeout(10000),
+      // Allow up to 15s for Google Apps Script cold start execution
+      signal: AbortSignal.timeout(15000),
     })
 
     if (!response.ok && response.status !== 302 && response.status !== 200) {
